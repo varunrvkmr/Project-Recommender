@@ -1,3 +1,18 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // Select all textarea elements
+    const textAreas = document.querySelectorAll('textarea');
+
+    textAreas.forEach(textArea => {
+        textArea.setAttribute('style', 'height:' + (textArea.scrollHeight) + 'px;overflow-y:hidden;');
+        textArea.addEventListener('input', autoResize, false);
+    });
+
+    function autoResize() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    }
+});
+
 document.getElementById('pageForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting in the traditional way
     

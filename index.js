@@ -25,7 +25,6 @@ let conversationContext = [];
 
 app.post('/api/chat', async (req, res) => {
     
-    //console.log(req.body); // Log the entire request body
     const { role, content } = req.body;
     
     let currentMessages = []; // Initialize here for each request
@@ -35,15 +34,6 @@ app.post('/api/chat', async (req, res) => {
         currentMessages.push({ role: "user", content: inputText });
         currentMessages.push({ role: "assistant", content: responseText });
     }
-    
-    /*
-    if (!role || !content) {
-        console.log("Missing fields:", { role, content }); // Log missing fields for debugging
-        return res.status(400).json({ error: "Both 'role' and 'content' fields are required." });
-    }
-    */
-
-    // Construct the message array from the provided role and content
     const messages = [{ role, content }];
     currentMessages.push({ role, content });
     
@@ -56,10 +46,8 @@ app.post('/api/chat', async (req, res) => {
             top_p: 1
         });
 
-        //res.json({ response: response.choices[0]})
         responseText = response.choices[0].message.content;
         conversationContext.push([messages, responseText]);
-        console.log(responseText);
         res.json({ responseText: responseText });
 
     } catch (error) {
