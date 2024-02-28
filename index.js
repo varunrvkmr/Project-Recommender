@@ -25,8 +25,10 @@ let conversationContext = [];
 
 app.post('/api/chat', async (req, res) => {
     
-    const { role, content } = req.body;
+    const { role, resume, interests} = req.body;
     
+
+    let content = `Given the resume and the interests, can you suggest some interesting coding projects to make your portfolio look better?\nResume: ${resume}\nInterests:${interests}`; // Adds a space between the two strings
     let currentMessages = []; // Initialize here for each request
 
     // Restore the previous context
@@ -34,6 +36,7 @@ app.post('/api/chat', async (req, res) => {
         currentMessages.push({ role: "user", content: inputText });
         currentMessages.push({ role: "assistant", content: responseText });
     }
+    
     const messages = [{ role, content }];
     currentMessages.push({ role, content });
     

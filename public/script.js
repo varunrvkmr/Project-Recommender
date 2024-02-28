@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.getElementById('pageForm').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from submitting in the traditional way
     
-    const messageInput = document.getElementById('content');
+    const resumeInput = document.getElementById('resumeTextArea');
+    const messageInput = document.getElementById('interestsTextArea');
     const chatResponse = document.getElementById('chatResponse');
 
     // Assuming the role is fixed or determined by some logic on your page
@@ -27,7 +28,7 @@ document.getElementById('pageForm').addEventListener('submit', function(event) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ role: role, content: messageInput.value }),
+        body: JSON.stringify({ role: role, resume: resumeInput.value, interests: messageInput.value}),
     })
     .then(response => {
         if (!response.ok) {
@@ -38,6 +39,7 @@ document.getElementById('pageForm').addEventListener('submit', function(event) {
     .then(data => {
         // Assuming the server response contains the AI response in a specific format
         chatResponse.value = data.responseText; // This needs to match the server response structure
+        
     })
     .catch(error => console.error('Error:', error));
 });
